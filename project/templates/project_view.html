@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+    {% block title %}
+    <title>Project view</title>
+    {% endblock %}
+
+    {% block site_css %}
+    <link href="{% static "css/nv.d3.css" %}" rel="stylesheet">
+    {% endblock %}
+
+{% block site_head_scripts %}
+    <script src="{% static "js/d3.v3.js" %}" type="text/javascript"><</script>
+    <script src="{% static "js/nv.d3.js" %}" type="text/javascript"><</script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    <div class="col-lg-6 col-md-8 col-sm-12">
+    <div id="chart" class="span4">
+        <svg style="height:500px;width:400px">
+    </div>
+    </div>
+    <div class="col-lg-6 col-md-4 col-sm-12">
+     <header>
+
+        <h1>{{ project.name }}</h1>
+         {{ project.customer.name }}
+     </header>
+        {{ description }}
+        <table>
+            <tr>
+                <td>Vereinbartes Zeitkontingent:</td>
+                <td>{{ project.workload }}</td>
+            </tr>
+            <tr>
+                <td>Zieltermin:</td>
+                <td>{{ project.death_line }}</td>
+            </tr>
+        </table>
+    </div>
+    </div>
+    <div>
+    <table class="work_table">
+        <tr>
+            <th>Datum</th>
+            <th>Dauer</th>
+            <th>Beschreibung</th>
+        </tr>
+        {% for work in project.activity_set.all %}
+            <tr>
+            <td>{{  work.start_time }}</td>
+            <td>{{ work.duration }}</td>
+            <td>{{ work.description }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+
+    <script type="text/javascript">
+
+
+        //Donut chart example
+        nv.addGraph(function () {
+            var chart = nv.models.pieChart()
+                            .x(function (d) {
+                                return d.label
+                            })
+                            .y(function (d) {
+                                return d.value
+                            })
+                            .showLabels(true)     //Display pie labels
+                            .labelThreshold(.05)  //Configure the minimum slice size for labels to show up
+                            .labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
+                            .donut(true)          //Turn on Donut mode. Makes pie chart look tasty!
+                            .donutRatio(0.35)     //Configure how big you want the donut hole size to be.
+                    ;
+
+            d3.select("#chart svg")
+                    .datum(exampleData())
+                    .transition().duration(350)
+                    .call(chart);
+
+            return chart;
+        });
+
+        //Pie chart example data. Note how there is only a single array of key-value pairs.
+        function exampleData() {
+            return {{ times|safe }};
+        }
+
+
+    </script>
+{% endblock %}
