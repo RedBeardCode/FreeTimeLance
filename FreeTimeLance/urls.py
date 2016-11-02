@@ -16,16 +16,19 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
+import django.contrib.auth.views as auth_view
 
-from project.views import ProjectView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^project/(?P<pk>[0-9]+)/$', ProjectView.as_view(), name='project_view'),
+    url(r'^project/', include('project.urls'))
 ]
 
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [
         url(r'^__debug__/', include(debug_toolbar.urls)),
+        url('^login/$', auth_view.login, {'template_name': 'login.html'}),
+        url('^accounts/login/$', auth_view.login, {'template_name': 'login.html'}),
+        url(r'^logout/$', auth_view.logout, {'next_page': '/'}),
     ]

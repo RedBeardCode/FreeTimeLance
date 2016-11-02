@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Projekt Liste
+{% endblock %}
+
+{% block content %}
+    <table id="project_list_table" class="table-striped">
+        <tr>
+            <th><h2>Projektname</h2></th>
+            <th><h2>Kunde</h2></th>
+            <th><h2>Beschreibung</h2></th>
+        </tr>
+        {% for pro in project_list %}
+            <tr class="clickable-row" data-href="{% url 'project_list' %}{{ pro.pk }}/">
+            <td>{{  pro.name }}</td>
+            <td>{{  pro.customer.name }}</td>
+            <td>{{  pro.description|truncatechars:50 }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+{% block site_scripts %}
+    <script src="{% static "js/clickable_row.js" %}"></script>
+{% endblock %}
+

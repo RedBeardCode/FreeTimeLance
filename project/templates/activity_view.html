@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+
+{% block title %}
+    Project view
+{% endblock %}
+
+{% block site_css %}
+    <link href="{% static "css/nv.d3.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block site_head_scripts %}
+    <script src="{% static "js/d3.v3.js" %}" type="text/javascript"><</script>
+    <script src="{% static "js/nv.d3.js" %}" type="text/javascript"><</script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+
+        <div class="col-lg-6 col-md-4 col-sm-12">
+            {{ activity.remarks }}
+
+        </div>
+        <div class="col-lg-6 col-md-8 col-sm-12">
+            <table class="work_table">
+                <tbody>
+                <tr>
+                    <th>
+                        Startdatum:
+                    </th>
+                    <td> {{ activity.start_time|naturalday }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        Enddatum:
+                    </th>
+                    <td> {{ activity.end_time|naturalday }}</td>
+
+                </tr>
+                <tr>
+                    <th>
+                        Dauer:
+                    </th>
+                    <td> {{ activity.duration|naturaltime }}</td>
+
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
