@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    <table id="project_list_table" class="table-striped">
+    <table id="activity_list_table" class="table-striped">
         <tr>
             <th><h2>Aktivität</h2></th>
             <th><h2>Projekt</h2></th>
@@ -16,10 +16,14 @@
             <th><h2>Dauer</h2></th>
         </tr>
         {% for act in activity_list %}
-            <tr class="clickable-row" data-href="{% url 'project_list' %}{{ pro.pk }}/">
+            {% if user.is_staff %}
+            <tr class="clickable-row" data-href="{% url 'update_activity_view' pk=act.pk %}">
+            {% else %}
+            <tr class="clickable-row" data-href="{% url 'activity_view' pk=act.pk %}">
+            {% endif %}
             <td>{{ act.remarks|truncatechars:20 }}</td>
             <td>{{ act.project.name }}</td>
-            <td>{{ act.start_time|naturalday }}}</td>
+            <td>{{ act.start_time|naturalday }}</td>
             <td>{{ act.end_time|naturalday }}</td>
             <td>{{ act.duration|naturaltime }}</td>
             </tr>

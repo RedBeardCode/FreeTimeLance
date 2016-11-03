@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+    Kunden Liste
+{% endblock %}
+
+{% block content %}
+    <table id="customer_list_table" class="table-striped">
+        <tr>
+            <th><h2>Name</h2></th>
+        </tr>
+        {% for customer in customer_list %}
+            {% if user.is_staff %}
+            <tr class="clickable-row" data-href="{% url 'update_customer_view' pk=customer.pk%}">
+            {% else %}
+            <tr class="clickable-row" data-href="{% url 'customer_view' pk=customer.pk%}">
+            {% endif %}
+            <td>{{ customer.name }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+{% block site_scripts %}
+    <script src="{% static "js/clickable_row.js" %}"></script>
+{% endblock %}
+

@@ -34,7 +34,7 @@ h1, h2, h3, h4, h5, h6{
     width: 100%;
 }
 
-#project_list_table{
+#project_list_table, #activity_list_table, #customer_list_table{
     width: 100%;
 }
 

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+    {% csrf_token %}
+        {{ form|crispy }}
+
+        {% if object.pk %}
+            <button class="btn btn-default" type="submit"> Update</button>
+            {% block delete_button %}
+            <a class="btn btn-default" role="button" href="delete/">Delete</a>
+            {% endblock %}
+        {% else %}
+            <button class="btn btn-default" type="submit"> Submit</button>
+        {% endif %}
+    </form>
+{% endblock %}

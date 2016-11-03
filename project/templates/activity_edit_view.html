@@ -1,0 +1,8 @@
+{% extends "edit_view.html" %}
+{% block title %}
+    Activity eintragen
+{% endblock %}
+
+{% block delete_button %}
+<a class="btn btn-default" role="button" href="{% url "delete_activity_view" pk=object.pk %}">Delete</a>
+{% endblock %}

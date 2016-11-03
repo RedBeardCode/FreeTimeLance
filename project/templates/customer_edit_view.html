@@ -1,0 +1,15 @@
+{% extends "edit_view.html" %}
+{% block title %}
+    Kunden eintragen
+{% endblock %}
+
+
+{% block buttons %}
+
+    {% if object.pk %}
+        <button class="btn btn-default" type="submit"> Update</button>
+        <a class="btn btn-default" role="button" href="{% url "delete_customer_view" pk=object.pk %}">Delete</a>
+    {% else %}
+        <button class="btn btn-default" type="submit"> Submit</button>
+    {% endif %}
+{% endblock %}

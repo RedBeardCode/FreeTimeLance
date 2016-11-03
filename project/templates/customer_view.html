@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+
+{% block title %}
+    Activity view
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+
+        <div class="col-lg-6 col-md-4 col-sm-12">
+            {{ activity.remarks }}
+
+        </div>
+        <div class="col-lg-6 col-md-8 col-sm-12">
+            <table class="work_table">
+                <tbody>
+                <tr>
+                    <th>
+                        Startdatum:
+                    </th>
+                    <td> {{ activity.start_time|naturalday }}</td>
+                </tr>
+                <tr>
+                    <th>
+                        Enddatum:
+                    </th>
+                    <td> {{ activity.end_time|naturalday }}</td>
+
+                </tr>
+                <tr>
+                    <th>
+                        Dauer:
+                    </th>
+                    <td> {{ activity.duration|naturaltime }}</td>
+
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

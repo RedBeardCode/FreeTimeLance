@@ -38,8 +38,8 @@ post_save.connect(after_costumer_saved, sender=Customer)
 
 def after_project_saved(sender, instance, created, *args, **kwargs):
     if created:
-        group = Group.objects.get_or_create(name=instance.get_group_name())[0];
-
+        instance.group = Group.objects.get_or_create(name=instance.get_group_name())[0];
+        instance.save()
 
 
 @python_2_unicode_compatible
@@ -54,6 +54,7 @@ class Project(models.Model):
     death_line = models.DateField('Death line')
     workload = models.DurationField('Submitted number of working hours')
     repository = models.URLField('Url of the repository')
+    group = models.ForeignKey('auth.Group', blank=True, null=True)
 
     def __str__(self):
         return  "Project: " + self.name
@@ -62,7 +63,7 @@ class Project(models.Model):
         return self.customer.name + "_" + self.name
 
     def get_group(self):
-        return Group.objects.get_or_create(name=self.get_group_name())[0]
+        return self.group
 
     def get_durations_dump(self):
         times = list() #{'label': 'test1',  'value': 10}, {'label':'Macht nix', 'value': 90}]

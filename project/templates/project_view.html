@@ -52,7 +52,11 @@
                 <th>Beschreibung</th>
             </tr>
             {% for work in project.activity_set.all %}
-                <tr class="clickable-row" data-href="{% url 'activity_list' %}{{ work.pk }}/">
+                {% if user.is_staff %}
+                    <tr class="clickable-row" data-href="{% url 'update_project_view' pk=work.pk %}/">
+                {% else %}
+                    <tr class="clickable-row" data-href="{% url 'activity_view' pk=work.pk %}">
+                {% endif %}
                     <td>{{ work.start_time|naturalday }}</td>
                     <td>{{ work.duration|hour}}h</td>
                     <td>{{ work.remarks }}</td>
