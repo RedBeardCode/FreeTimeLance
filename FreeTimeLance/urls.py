@@ -1,3 +1,4 @@
+# coding=utf-8
 """FreeTimeLance URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -18,17 +19,18 @@ from django.conf.urls import url, include
 from django.contrib import admin
 import django.contrib.auth.views as auth_view
 
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^project/', include('project.urls'))
+    url(r'', include('project.urls')),
+    url('^login/$', auth_view.login, {'template_name': 'login.html'}),
+    url('^accounts/login/$', auth_view.login, {'template_name': 'login.html'}),
+    url(r'^logout/$', auth_view.logout, {'next_page': '/'}),
 ]
 
 if settings.DEBUG:
     import debug_toolbar
+
     urlpatterns += [
         url(r'^__debug__/', include(debug_toolbar.urls)),
-        url('^login/$', auth_view.login, {'template_name': 'login.html'}),
-        url('^accounts/login/$', auth_view.login, {'template_name': 'login.html'}),
-        url(r'^logout/$', auth_view.logout, {'next_page': '/'}),
+
     ]

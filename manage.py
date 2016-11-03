@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+# coding=utf-8
+"""
+Default manage.py from django
+"""
 import os
 import sys
 

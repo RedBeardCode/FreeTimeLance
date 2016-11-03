@@ -1,8 +1,11 @@
+# coding=utf-8
+"""
+Configuration of the Admin interface
+"""
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 
 from project.models import Project, Customer, Activity
-# Register your models here.
 
 
 admin.site.register(Activity, ModelAdmin)

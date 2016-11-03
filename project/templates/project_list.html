@@ -18,7 +18,7 @@
             <td>{{  pro.customer.name }}</td>
             <td>{{  pro.description|truncatechars:50 }}</td>
             {% if user.is_staff %}
-                <td><a hre="{% url 'update_project_view' pk=pro.pk %}">Edit</a></td>
+                <td><a href="{% url 'update_project_view' pk=pro.pk %}">Edit</a></td>
             {% endif %}
             </tr>
         {% endfor %}

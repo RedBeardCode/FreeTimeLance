@@ -12,10 +12,11 @@
         {% if object.pk %}
             <button class="btn btn-default" type="submit"> Update</button>
             {% block delete_button %}
-            <a class="btn btn-default" role="button" href="delete/">Delete</a>
+            <a class="btn btn-default" role="button" href="/">Delete</a>
             {% endblock %}
         {% else %}
             <button class="btn btn-default" type="submit"> Submit</button>
         {% endif %}
     </form>
+    <a class="btn btn-default" role="button" href="{% url "invite_user" %}">Kunden einladen</a>
 {% endblock %}
