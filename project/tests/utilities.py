@@ -55,6 +55,8 @@ def create_test_data():
     """
     Creates sample data(customers, activities and projects) for unit test
     """
+
     create_customers()
     create_projects()
     create_activities()
+

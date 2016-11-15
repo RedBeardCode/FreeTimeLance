@@ -18,12 +18,23 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
 import django.contrib.auth.views as auth_view
+from django.http import Http404
+from django.shortcuts import redirect
+from django.views.defaults import page_not_found
+from django.views.generic import CreateView
+
+from project.views import CustomerSignUpView, CustomerAcceptInvite, show_404
 
 urlpatterns = [
+    url(r'^invitations/accept-invite/(?P<key>\w+)/?$', CustomerAcceptInvite.as_view(),
+        name='accept-invite'),
+    url(r'^invitations/', include('invitations.urls', namespace='invitations')),
     url(r'^admin/', admin.site.urls),
     url(r'', include('project.urls')),
-    url('^login/$', auth_view.login, {'template_name': 'login.html'}),
-    url('^accounts/login/$', auth_view.login, {'template_name': 'login.html'}),
+#    url('^login/$', auth_view.login, {'template_name': 'login.html'}),
+    url('^accept-invite/register/$', show_404, name='account_signup'),
+    url('^accept-invite/register/(?P<key>\w+)/?$', CustomerSignUpView.as_view(), name='account_signup'),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^logout/$', auth_view.logout, {'next_page': '/'}),
 ]
 

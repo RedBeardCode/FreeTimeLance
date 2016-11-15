@@ -10,6 +10,25 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.db.models.signals import post_save
 from django.contrib.auth.models import Group
 from django.utils.timezone import timedelta
+from invitations.models import Invitation
+from invitations.signals import invite_accepted
+
+
+def user_accepted_invitation(sender, **kwargs):
+    pass
+
+
+class CustomerInvitation(Invitation):
+    customer = models.ForeignKey('Customer', blank=True, null=True)
+
+
+#TODO: Success url
+
+invite_accepted.connect(user_accepted_invitation)
+
+
+
+
 
 
 def after_costumer_saved(sender, instance, created, *args, **kwargs):
@@ -26,6 +45,7 @@ class Customer(models.Model):
     Customer who ordered the project
     """
     name = models.CharField('Name of the customer', max_length=250)
+
 
     def __str__(self):
         return self.name
@@ -52,8 +72,9 @@ def after_project_saved(sender, instance, created, *args, **kwargs):
     It is imported to enable filtering of the querysets.
     """
     if created:
-        instance.group = instance.customer.get_group()
+        instance.group = instance.customer.get_group()[0]
         instance.save()
+
 
 
 @python_2_unicode_compatible

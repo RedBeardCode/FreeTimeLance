@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sites',
     'debug_toolbar',
+    'invitations',
     'crispy_forms',
     'project',
 ]
@@ -129,3 +131,8 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 LOGIN_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SITE_ID = 1
+

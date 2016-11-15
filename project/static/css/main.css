@@ -13,9 +13,10 @@ body{
 
 
 .navbar-brand{
-    font-family: CabinSketch;
+    font-family: 'Cabin Sketch';
     font-size: 400%;
     margin-top: 30px;
+    font-weight: 700;
 }
 
 .navbar-fixed-top{
@@ -49,6 +50,16 @@ h1, h2, h3, h4, h5, h6{
 
 .clickable-row:hover{
     cursor: pointer;
+}
+
+#invite_form{
+    margin-top: 100px;
+}
+
+#form_message{
+    color: #d58512;
+    font-size: small;
+    height: 30px;
 }
 
 
