@@ -1,0 +1,35 @@
+language: python
+python:
+  - "2.7"
+  - "3.5"
+
+services: postgresql
+
+cache: pip
+
+env:
+  global:
+    - DJANGO_SETTINGS_MODULE=FreeTimeLance.test_settings
+  matrix:
+    - SAUCE_BROWSER="chrome" SAUCE_PLATFORM="Windows 10" TEST_PATTERN="user_invitation"
+    - SAUCE_BROWSER="chrome" SAUCE_PLATFORM="Linux" TEST_PATTERN="user_invitation"
+
+
+
+install:
+  - pip install -r requirements.txt
+  - pip install -r requirements_dev.txt
+  - pip install python-coveralls
+
+
+script:
+  - python manage.py makemigrations project
+  - python manage.py migrate
+  - python manage.py createtestdata
+  - py.test --cov-config .coveragerc --cov=project --cov=FreeTimeLance -k $TEST_PATTERN
+
+addons:
+  sauce_connect: true
+
+after_success:
+  - coveralls
