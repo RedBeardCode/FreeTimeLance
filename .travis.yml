@@ -11,8 +11,13 @@ env:
   global:
     - DJANGO_SETTINGS_MODULE=FreeTimeLance.test_settings
   matrix:
-    - SAUCE_BROWSER="chrome" SAUCE_PLATFORM="Windows 10" TEST_PATTERN="user_invitation"
-    - SAUCE_BROWSER="chrome" SAUCE_PLATFORM="Linux" TEST_PATTERN="user_invitation"
+    - SAUCE_BROWSER="safari" SAUCE_PLATFORM="OS X 10.11"
+    - SAUCE_BROWSER="MicrosoftEdge" SAUCE_PLATFORM="Windows 10"
+    - SAUCE_BROWSER="internet explorer" SAUCE_PLATFORM="Windows 10"
+    - SAUCE_BROWSER="chrome" SAUCE_PLATFORM="Windows 10"
+    - SAUCE_BROWSER="chrome" SAUCE_PLATFORM="Linux"
+    - SAUCE_BROWSER="firefox" SAUCE_PLATFORM="Windows 10"
+    - SAUCE_BROWSER="firefox" SAUCE_PLATFORM="Linux"
 
 
 
@@ -25,7 +30,7 @@ install:
 script:
   - python manage.py makemigrations project
   - python manage.py migrate
-  - py.test --cov-config .coveragerc --cov=project --cov=FreeTimeLance -k $TEST_PATTERN
+  - py.test --cov-config .coveragerc --cov=project --cov=FreeTimeLance
 
 addons:
   sauce_connect: true
