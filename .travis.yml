@@ -25,7 +25,6 @@ install:
 script:
   - python manage.py makemigrations project
   - python manage.py migrate
-  - python manage.py createtestdata
   - py.test --cov-config .coveragerc --cov=project --cov=FreeTimeLance -k $TEST_PATTERN
 
 addons:
