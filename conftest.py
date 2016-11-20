@@ -20,11 +20,6 @@ def django_db_setup(django_db_setup, django_db_blocker):
 
 
 @pytest.fixture(scope='session')
-def splinter_webdriver():
-    """Override splinter webdriver name."""
-    return 'chrome'
-
-@pytest.fixture(scope='session')
 def splinter_remote_url():
     url = ''
     try:

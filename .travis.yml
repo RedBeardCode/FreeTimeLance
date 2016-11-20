@@ -30,7 +30,7 @@ install:
 script:
   - python manage.py makemigrations project
   - python manage.py migrate
-  - py.test –splinter-webdriver='remote' --cov-config .coveragerc --cov=project --cov=FreeTimeLance
+  - py.test  --splinter-webdriver='remote' --cov-config .coveragerc --cov=project --cov=FreeTimeLance
 
 addons:
   sauce_connect: true
