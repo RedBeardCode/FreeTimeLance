@@ -38,3 +38,18 @@ def splinter_remote_url():
     except BaseException:
         pass
     return url
+
+@pytest.fixture(scope='session')
+def splinter_driver_kwargs():
+    try:
+        tunnel_id = os.environ['TRAVIS_JOB_NUMBER']
+        browser = os.environ['SAUCE_BROWSER']
+        platform = os.environ['SAUCE_PLATFORM']
+        desired_cap = {
+            'platform': platform,
+            'browserName': browser,
+            'tunnelIdentifier': tunnel_id
+        }
+        return desired_cap
+    except BaseException:
+        return {}
