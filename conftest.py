@@ -9,8 +9,6 @@ import os
 import pytest
 
 from django.core.management import call_command
-from splinter import Browser
-
 from project.tests.utilities import create_test_data
 
 
@@ -22,37 +20,27 @@ def django_db_setup(django_db_setup, django_db_blocker):
 
 
 @pytest.fixture(scope='session')
-def splinter_driver_kwargs():
+def splinter_remote_url():
+    url = ''
     try:
         user = os.environ['SAUCE_USERNAME']
         key = os.environ['SAUCE_ACCESS_KEY']
-        url = 'http://{0}:{1}@ondemand.saucelabs.com/wd/hub'.format(user, key)
+        url = 'http://{0}:{1}@ondemand.saucelabs.com:80/wd/hub'.format(user, key)
+    except BaseException:
+        pass
+    return url
+
+@pytest.fixture(scope='session')
+def splinter_driver_kwargs():
+    try:
         tunnel_id = os.environ['TRAVIS_JOB_NUMBER']
         browser = os.environ['SAUCE_BROWSER']
         platform = os.environ['SAUCE_PLATFORM']
-        kwargs = {
-            'url': url,
+        desired_cap = {
             'platform': platform,
             'browserName': browser,
             'tunnelIdentifier': tunnel_id
         }
-        return kwargs
+        return desired_cap
     except BaseException:
         return {}
-
-
-@pytest.fixture(scope='session')
-def browser(request,browser_instance_getter):
-    user = os.environ['SAUCE_USERNAME']
-    key = os.environ['SAUCE_ACCESS_KEY']
-    url = 'http://{0}:{1}@ondemand.saucelabs.com/wd/hub'.format(user, key)
-    tunnel_id = os.environ['TRAVIS_JOB_NUMBER']
-    browser_name = os.environ['SAUCE_BROWSER']
-    platform = os.environ['SAUCE_PLATFORM']
-    browser = Browser(driver_name="remote",
-            url=url,
-            browser=browser_name,
-            platform=platform,
-                      tunnelIdentifier=tunnel_id,
-            name="Test of IE 9 on WINDOWS")
-    return browser
