@@ -23,18 +23,9 @@ def django_db_setup(django_db_setup, django_db_blocker):
 def splinter_remote_url():
     url = ''
     try:
-        tunnel_id = os.environ['TRAVIS_JOB_NUMBER']
-        browser = os.environ['SAUCE_BROWSER']
-        platform = os.environ['SAUCE_PLATFORM']
-        desired_cap = {
-            'platform': platform,
-            'browserName': browser,
-            'tunnelIdentifier': tunnel_id
-        }
 
-        user = os.environ['SAUCE_USERNAME']
-        key = os.environ['SAUCE_ACCESS_KEY']
-        url = 'http://{0}:{1}@ondemand.saucelabs.com/wd/hub'.format(user, key)
+
+
     except BaseException:
         pass
     return url
@@ -42,14 +33,18 @@ def splinter_remote_url():
 @pytest.fixture(scope='session')
 def splinter_driver_kwargs():
     try:
+        user = os.environ['SAUCE_USERNAME']
+        key = os.environ['SAUCE_ACCESS_KEY']
+        url = 'http://{0}:{1}@ondemand.saucelabs.com/wd/hub'.format(user, key)
         tunnel_id = os.environ['TRAVIS_JOB_NUMBER']
         browser = os.environ['SAUCE_BROWSER']
         platform = os.environ['SAUCE_PLATFORM']
-        desired_cap = {
+        kwargs = {
+            'url': url,
             'platform': platform,
             'browserName': browser,
             'tunnelIdentifier': tunnel_id
         }
-        return desired_cap
+        return kwargs
     except BaseException:
         return {}
