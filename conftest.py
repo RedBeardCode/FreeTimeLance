@@ -20,17 +20,6 @@ def django_db_setup(django_db_setup, django_db_blocker):
 
 
 @pytest.fixture(scope='session')
-def splinter_remote_url():
-    url = ''
-    try:
-
-
-
-    except BaseException:
-        pass
-    return url
-
-@pytest.fixture(scope='session')
 def splinter_driver_kwargs():
     try:
         user = os.environ['SAUCE_USERNAME']
