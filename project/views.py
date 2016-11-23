@@ -7,17 +7,16 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from django.http.response import HttpResponse, Http404, JsonResponse
+from django.http.response import Http404, JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views import View
 from django.views.generic import DeleteView
 from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from django.views.generic import FormView
-from invitations.models import Invitation
 from invitations.views import AcceptInvite
 
 from project.models import Project, Activity, Customer, CustomerInvitation
+
 
 def show_404(request):
     raise Http404()
@@ -27,7 +26,7 @@ class CustomerAcceptInvite(AcceptInvite):
     def post(self, *args, **kwargs):
         target = super(CustomerAcceptInvite, self).post(*args, **kwargs)
         accept_url = reverse_lazy('account_signup')
-        if hasattr(target, 'url')  and target.url == accept_url:
+        if hasattr(target, 'url') and target.url == accept_url:
             invitation = self.get_object()
             target = redirect(target.url + invitation.key)
         return target
@@ -51,11 +50,10 @@ class CustomerSignUpView(FormView):
         return super(CustomerSignUpView, self).form_valid(form)
 
 
-
 class ProjectListView(ListView):
     """
-    List all projects of the logined customer. If the user is in the staff group all
-    project will be shown
+    List all projects of the logined customer. If the user is in the staff
+    group all project will be shown
     """
     model = Project
     template_name = "project_list.html"
@@ -74,12 +72,12 @@ class ProjectListView(ListView):
 
 class ProjectView(UserPassesTestMixin, DetailView):
     """
-    Overview for one project with pie chart and a table of all activities. The user has to
-    be in the user group of the customer or staff to see the overview
+    Overview for one project with pie chart and a table of all activities.
+    The user has to be in the user group of the customer or staff to see
+    the overview
     """
     template_name = "project_view.html"
     model = Project
-
 
     def test_func(self):
         """
@@ -88,7 +86,8 @@ class ProjectView(UserPassesTestMixin, DetailView):
         try:
             if self.request.user.is_staff:
                 return True
-            return self.request.user in self.get_object().get_group().user_set.all()
+            return self.request.user in \
+                self.get_object().get_group().user_set.all()
         except AttributeError:
             return False
 
@@ -99,18 +98,21 @@ class ProjectView(UserPassesTestMixin, DetailView):
         context = super(ProjectView, self).get_context_data(**kwargs)
         context['times'] = self.get_object().get_durations_dump()
         return context
-    
+
     def post(self, request, *args, **kwargs):
-        context={}
+        context = {}
         try:
-            invitation = CustomerInvitation.create(request.POST['email'], request.user)
+            invitation = CustomerInvitation.create(request.POST['email'],
+                                                   request.user)
             invitation.customer = self.get_object().customer
             invitation.save()
             invitation.send_invitation(request)
-            context["form_message"] = "Successfully invited {0}".format(request.POST['email'])
+            context["form_message"] = "Successfully invited {0}".format(
+                request.POST['email'])
             context["color"] = "#2aabd2"
         except IntegrityError:
-            context["form_message"] = "{0} already invited".format(request.POST['email'])
+            context["form_message"] = "{0} already invited".format(
+                request.POST['email'])
             context["color"] = "#d58512"
 
         return JsonResponse(context)
@@ -122,7 +124,8 @@ class CreateProjectView(CreateView):
     """
     template_name = "project_edit_view.html"
     model = Project
-    fields = ['name', 'customer', 'description', 'start_date', 'death_line', 'workload', 'repository']
+    fields = ['name', 'customer', 'description', 'start_date', 'death_line',
+              'workload', 'repository']
     success_url = reverse_lazy('project_list')
 
 
@@ -132,7 +135,8 @@ class UpdateProjectView(UpdateView):
     """
     template_name = "project_edit_view.html"
     model = Project
-    fields = ['name', 'customer', 'description', 'start_date', 'death_line', 'workload', 'repository']
+    fields = ['name', 'customer', 'description', 'start_date', 'death_line',
+              'workload', 'repository']
     success_url = reverse_lazy('project_list')
 
 
@@ -147,8 +151,8 @@ class DeleteProjectView(DeleteView):
 
 class ActivityView(UserPassesTestMixin, DetailView):
     """
-    Display the activity details. The user has to be in the user group of the customer of
-    the project or staff
+    Display the activity details. The user has to be in the user group of the
+    customer of the project or staff
     """
     model = Activity
     template_name = "activity_view.html"
@@ -160,7 +164,8 @@ class ActivityView(UserPassesTestMixin, DetailView):
         try:
             if self.request.user.is_staff:
                 return True
-            return self.request.user in self.get_object().project.get_group().user_set.all()
+            return self.request.user in \
+                self.get_object().project.get_group().user_set.all()
         except AttributeError:
             return False
 

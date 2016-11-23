@@ -25,12 +25,12 @@ install:
   - pip install -r requirements.txt
   - pip install -r requirements_dev.txt
   - pip install python-coveralls
-
+  - pip install pylama
 
 script:
   - python manage.py makemigrations project
   - python manage.py migrate
-  - py.test  --splinter-webdriver='remote' --cov-config .coveragerc --cov=project --cov=FreeTimeLance --splinter-make-screenshot-on-failure=false
+  - py.test  --pylama --splinter-webdriver='remote' --cov-config .coveragerc --cov=project --cov=FreeTimeLance --splinter-make-screenshot-on-failure=false
 
 addons:
   sauce_connect: true

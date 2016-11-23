@@ -2,15 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-Configuration of the pytest with CmdLine options, Fixtures and TearDown function
+Configuration of the pytest with CmdLine options, Fixtures and TearDown
+function
 """
 import os
-
 import pytest
-
-from django.core.management import call_command
 from project.tests.utilities import create_test_data
-
 
 
 @pytest.fixture(scope='session')
@@ -25,10 +22,12 @@ def splinter_remote_url():
     try:
         user = os.environ['SAUCE_USERNAME']
         key = os.environ['SAUCE_ACCESS_KEY']
-        url = 'http://{0}:{1}@ondemand.saucelabs.com:80/wd/hub'.format(user, key)
+        url = 'http://{0}:{1}@ondemand.saucelabs.com:80/wd/hub'.format(user,
+                                                                       key)
     except BaseException:
         pass
     return url
+
 
 @pytest.fixture(scope='session')
 def splinter_driver_kwargs():
