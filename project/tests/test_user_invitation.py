@@ -20,6 +20,7 @@ def logined_admin_browser(browser, live_server, db, admin_user):
     browser.find_by_name('username')[0].value = 'admin'
     browser.find_by_name('password')[0].value = 'password'
     browser.find_by_value('Login')[0].click()
+    sleep(3)
     yield browser
     browser.driver.close()
 
