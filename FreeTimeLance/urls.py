@@ -32,7 +32,8 @@ urlpatterns = [
     url('^accept-invite/register/(?P<key>\w+)/?$',
         CustomerSignUpView.as_view(), name='account_signup'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^logout/$', auth_view.logout, {'next_page': '/'}),
+    url(r'^logout/$', auth_view.logout, {'next_page': '/'},
+        name='freetimelance_logout'),
 ]
 
 if settings.DEBUG:

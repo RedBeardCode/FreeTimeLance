@@ -62,7 +62,40 @@ h1, h2, h3, h4, h5, h6{
     height: 30px;
 }
 
+.sidebar {
+    margin-top: 51px;
+    position: absolute;
+    z-index: 1;
+}
 
+.navbar-right {
+    margin-top: -55px;
+}
+
+.navbar-default
+{
+    background-color: #707070;
+    background-image: None;
+    font-family: Electrolize;
+}
+
+a
+{
+    color: #A0B0A0;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus{
+   /*# background-color: #909090;*/
+    background-image: None;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background-color: transparent;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color: transparent;
+}
 
 
 
