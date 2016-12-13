@@ -1,29 +1,8 @@
 
-import pytest
 from random import randint
 
 from django.contrib.auth.models import User
 from invitations.models import Invitation
-
-
-@pytest.fixture
-def invitation():
-    invite = Invitation.create('{0}@example.com'.format(randint(11111111,
-                                                                99999999)))
-    yield invite
-    invite.delete()
-
-
-@pytest.fixture
-def logined_admin_browser(browser, live_server, db, admin_user):
-    browser.visit(live_server.url)
-    browser.find_by_name('username')[0].value = 'admin'
-    browser.find_by_name('password')[0].value = 'password'
-    browser.find_by_value('Login')[0].click()
-    assert browser.is_element_not_present_by_id('#project_list_table',
-                                                wait_time=3)
-    yield browser
-    browser.driver.close()
 
 
 class TestUserInvitationBackEnd:
@@ -40,11 +19,10 @@ class TestUserInvitationBackEnd:
 
 class TestInvitationFrontEnd:
 
-    @pytest.mark.django_db(transaction=True)
     def test_invitation_user(self, logined_admin_browser,
                              live_server, mailoutbox):
         mails_before = len(mailoutbox)
-        logined_admin_browser.visit(live_server + '/1/')
+        logined_admin_browser.find_by_css('.clickable-row').first.click()
         email = logined_admin_browser.find_by_name('email')[0]
         test_email = '{0}@example.com'.format(randint(11111111, 99999999))
         email.value = test_email
