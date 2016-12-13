@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'invitations',
     'crispy_forms',
     'project',
+    'hamster_import',
 ]
 
 MIDDLEWARE = [
@@ -83,9 +84,13 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
+    'hamster': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'hamster_import/hamster.db'),
+    },
 }
 
-
+DATABASE_ROUTERS = ['hamster_import.router.ApiRouter']
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 

@@ -118,10 +118,11 @@ class Activity(models.Model):
     """
     Single activity of your daily work
     """
+    hamster_id = models.IntegerField('Id of hamster activity', unique=True, blank=True, null=True)
     start_time = models.DateTimeField('Start time')
     end_time = models.DateTimeField('End time')
     project = models.ForeignKey('Project')
-    remarks = models.TextField('Remarks for the done work')
+    remarks = models.TextField('Remarks for the done work', null=True)
 
     def duration(self):
         """
