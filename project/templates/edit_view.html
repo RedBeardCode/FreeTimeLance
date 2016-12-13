@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block content %}
+
+        {% block add_button %}
+        {% endblock %}
     <form method="post">
     {% csrf_token %}
         {{ form|crispy }}

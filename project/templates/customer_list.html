@@ -7,6 +7,13 @@
 {% endblock %}
 
 {% block content %}
+    {% block add_button %}
+        <div class="add-button-wrapper">
+        <a class="btn add-button" role="button" href="{% url "create_customer_view" %}">
+            <i class="fa fa-plus fa-fw"></i>
+        </a>
+        </div>
+    {% endblock %}
     <table id="customer_list_table" class="table-striped">
         <tr>
             <th><h2>Name</h2></th>

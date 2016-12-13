@@ -97,6 +97,16 @@ a
     background-color: transparent;
 }
 
+.add-button{
+    background-color: #707070;
+    color: #A0B0A0;
+    background-image: None;
+}
+
+.add-button-wrapper{
+    width:100%;
+    text-align: right;
+}
 
 
 
