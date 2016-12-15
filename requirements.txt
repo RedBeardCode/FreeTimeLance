@@ -2,3 +2,4 @@ django>=1.10
 django-crispy-forms>=1.5.1
 django-invitations
 django-debug-toolbar
+django-cron

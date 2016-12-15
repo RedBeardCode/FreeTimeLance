@@ -6,13 +6,13 @@ from logging import getLogger
 
 HAMSTER_LOGGER = getLogger('hamster_logger')
 
+
 def download_hamster_db(url, filename=settings.DATABASES['hamster']['NAME']):
     with urlopen(url) as db_link:
         db_data = db_link.read()
         HAMSTER_LOGGER.info("Successfully downloaded db.")
     with open(filename, 'wb') as db_file:
         db_file.write(db_data)
-
 
 
 def import_db_entries():
@@ -33,7 +33,8 @@ def import_db_entries():
                 project=Project.objects.get(name__iexact=tag.name),
                 remarks=description)
             if created:
-                HAMSTER_LOGGER.info('Created Activitiy with hamster_id {0]'.format(fact.id))
+                HAMSTER_LOGGER.info('Created Activitiy with hamster_id {0]'
+                                    .format(fact.id))
             else:
-                HAMSTER_LOGGER.info('Updated Activitiy with hamster_id {0]'.format(fact.id))
-
+                HAMSTER_LOGGER.info('Updated Activitiy with hamster_id {0]'
+                                    .format(fact.id))

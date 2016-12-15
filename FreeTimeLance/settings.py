@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'project',
     'hamster_import',
+    'django_cron',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +144,6 @@ LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SITE_ID = 1
+CRON_CLASSES = [
+    "hamster_import.cron.ImportJob",
+]
