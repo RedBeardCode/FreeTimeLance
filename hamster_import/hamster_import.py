@@ -1,6 +1,9 @@
 from .hamster_models import Facts
 from project.models import Activity, Customer, Project
-from urllib.request import urlopen
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib import urlopen
 from django.conf import settings
 from logging import getLogger
 
