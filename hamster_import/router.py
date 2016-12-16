@@ -1,5 +1,4 @@
 from django.db.models.base import ModelBase
-
 import hamster_import.hamster_models as hm
 
 
