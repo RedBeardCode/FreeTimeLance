@@ -13,7 +13,8 @@ class ApiRouter(object):
         return False
 
     def allow_relation(self, obj1, obj2, **hints):
-        if obj1.__class__.__name__ in self.hamster_models or obj2.__class__.__name__ in self.hamster_models:
+        if obj1.__class__.__name__ in self.hamster_models \
+                or obj2.__class__.__name__ in self.hamster_models:
             return False
         return None
 

@@ -1,4 +1,4 @@
-from .settings import DATABASES
+from .settings import *
 
 import dj_database_url
 db_from_env = dj_database_url.config()
