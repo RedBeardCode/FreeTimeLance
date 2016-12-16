@@ -1,15 +1,11 @@
-from django.db.models.base import ModelBase
-import hamster_import.hamster_models as hm
-
 
 class ApiRouter(object):
-    hamster_models = [
-        getattr(hm, cls_name) for cls_name in dir(hm) if isinstance(
-            getattr(hm, cls_name), ModelBase)]
+    hamster_models = ['Activities', 'Categories', 'FactTags', 'Facts', 'Tags']
+
     hamster_db = 'hamster'
 
     def db_for_read(self, model, **hints):
-        if model in self.hamster_models:
+        if model.__class__.__name__ in self.hamster_models:
             return self.hamster_db
         return None
 
@@ -17,7 +13,7 @@ class ApiRouter(object):
         return False
 
     def allow_relation(self, obj1, obj2, **hints):
-        if obj1 in self.hamster_models or obj2 in self.hamster_models:
+        if obj1.__class__.__name__ in self.hamster_models or obj2.__class__.__name__ in self.hamster_models:
             return False
         return None
 
