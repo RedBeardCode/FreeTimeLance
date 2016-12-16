@@ -4,7 +4,8 @@ from django.conf import settings
 from django_cron import CronJobBase, Schedule
 
 from hamster_import.hamster_import import HAMSTER_LOGGER
-from hamster_import import download_hamster_db, import_db_entries
+from hamster_import.hamster_import import download_hamster_db
+from hamster_import.hamster_import import import_db_entries
 
 
 class ImportJob(CronJobBase):
