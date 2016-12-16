@@ -6,4 +6,6 @@ DATABASES['default'].update(db_from_env)
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-DEBUG=False
+DEBUG=True
+
+ALLOWED_HOSTS = ['0.0.0.0']
