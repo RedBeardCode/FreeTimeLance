@@ -5,7 +5,7 @@ class ApiRouter(object):
     hamster_db = 'hamster'
 
     def db_for_read(self, model, **hints):
-        if model.__class__.__name__ in self.hamster_models:
+        if model.__name__ in self.hamster_models:
             return self.hamster_db
         return None
 
