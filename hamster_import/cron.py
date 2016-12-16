@@ -17,12 +17,8 @@ class ImportJob(CronJobBase):
                         retry_after_failure_mins=RETRY_AFTER_FAILURE_MINS)
 
     def do(self):
-        print('start import')
         HAMSTER_LOGGER.error('Start import job')
         url = os.environ['HAMSTER_URL']
-        print('downlowad url {}'.format(url))
         download_hamster_db(url)
-        print('downloaded file')
         import_db_entries()
-        print('stop import')
         HAMSTER_LOGGER.info('Stop import job')
