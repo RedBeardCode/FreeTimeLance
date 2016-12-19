@@ -14,8 +14,8 @@ class ApiRouter(object):
 
     def allow_relation(self, obj1, obj2, **hints):
         if obj1.__class__.__name__ in self.hamster_models \
-                or obj2.__class__.__name__ in self.hamster_models:
-            return False
+                and obj2.__class__.__name__ in self.hamster_models:
+            return True
         return None
 
     def allow_syncdb(self, db, model):
