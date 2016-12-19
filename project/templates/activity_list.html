@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block content %}
+    {% if user.is_staff %}
         {% block add_button %}
             <div class="add-button-wrapper">
             <a class="btn add-button" role="button" href="{% url "create_activity_view" %}">
@@ -14,6 +15,7 @@
             </a>
             </div>
         {% endblock %}
+    {% endif %}
     <table id="activity_list_table" class="table-striped">
         <tr>
             <th><h2>Aktivität</h2></th>
