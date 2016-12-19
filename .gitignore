@@ -1,3 +1,11 @@
 */invitations/*
 *.pyc
+project.tests*
+hamster.db
+db.sqlite3
+*.log
+staticfiles/*
+.cache/*
+.idea/*
+*migrations*
 
