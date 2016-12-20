@@ -36,8 +36,8 @@ def import_db_entries():
                 project=Project.objects.get(name__iexact=tag.name),
                 remarks=description)
             if created:
-                HAMSTER_LOGGER.info('Created Activitiy with hamster_id {0]'
+                HAMSTER_LOGGER.info('Created Activitiy with hamster_id {0}'
                                     .format(fact.id))
             else:
-                HAMSTER_LOGGER.info('Updated Activitiy with hamster_id {0]'
+                HAMSTER_LOGGER.info('Updated Activitiy with hamster_id {0}'
                                     .format(fact.id))
