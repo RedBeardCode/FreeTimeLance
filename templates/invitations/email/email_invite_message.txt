@@ -1,0 +1,22 @@
+{% load i18n %}
+{% autoescape off %}
+{% blocktrans %}
+
+Hallo,
+
+Damit Sie immer einen guten Überblick über den Projektfortschritt haben, habe ich
+Sie ({{ email }}) zu meinen Zeitverwaltungsportal {{ site_name }} eingeladen.
+
+Um die Einladung abzuschliessen folgen die bitte diesem Link {{ invite_url }}
+und legen einen Benutzernamen und ein Passwort fest.
+
+Mit freundlichen Grüßen,
+
+{{ user.get_full_name }}
+
+RedBeardCode
+URL www.red-beard-code.de
+
+
+{% endblocktrans %}
+{% endautoescape %}
