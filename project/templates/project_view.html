@@ -61,7 +61,7 @@
             </tr>
             {% for work in project.activity_set.all %}
                 {% if user.is_staff %}
-                    <tr class="clickable-row" data-href="{% url 'update_project_view' pk=work.pk %}/">
+                    <tr class="clickable-row" data-href="{% url 'update_activity_view' pk=work.pk %}">
                 {% else %}
                     <tr class="clickable-row" data-href="{% url 'activity_view' pk=work.pk %}">
                 {% endif %}
