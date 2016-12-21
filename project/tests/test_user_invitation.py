@@ -44,3 +44,7 @@ class TestInvitationFrontEnd:
         logined_admin_browser.find_by_id('id_password2')[0].value = 'Start123'
         logined_admin_browser.find_by_value('Login')[0].click()
         assert User.objects.get(username='test')
+
+    def test_block_registration(self, live_server, browser):
+        browser.visit(live_server + '/accept-invite/register/')
+        assert browser.is_text_present('Page Not Found')

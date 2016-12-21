@@ -62,3 +62,16 @@ def logined_admin_browser(browser, live_server, db, admin_user):
                                                 wait_time=3)
     yield browser
     browser.driver.close()
+
+
+@pytest.fixture
+def logined_browser(browser, live_server, db):
+    create_test_data()
+    browser.visit(live_server.url)
+    browser.find_by_name('username')[0].value = 'Customer_0'
+    browser.find_by_name('password')[0].value = 'Start123'
+    browser.find_by_value('Login')[0].click()
+    assert browser.is_element_not_present_by_id('#project_list_table',
+                                                wait_time=3)
+    yield browser
+    browser.driver.close()
