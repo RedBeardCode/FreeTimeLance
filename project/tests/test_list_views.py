@@ -78,7 +78,7 @@ class TestActivityView:
         table_cells = logined_admin_browser.find_by_css('.clickable-row td')
         assert len(table_cells) == 2500
         for i in [randint(20, 99) for _ in range(5)]:
-            logined_admin_browser.is_text_present('Aktivität', wait_time=1)
+            logined_admin_browser.is_text_present('Aktivit', wait_time=1)
             row = logined_admin_browser.find_by_css('.clickable-row')[i]
             row.click()
             logined_admin_browser.is_text_present('Update', wait_time=1)
