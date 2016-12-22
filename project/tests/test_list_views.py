@@ -13,7 +13,7 @@ class TestProjectView:
             logined_admin_browser.is_text_present('Projektname', wait_time=3)
             logined_admin_browser.execute_script("window.scrollTo(0, 0);")
             row = logined_admin_browser.find_by_css('.clickable-row')[i]
-            row.find_by_css('a')[1].click()
+            row.find_by_css('a')[0].click()
             assert logined_admin_browser.is_text_present(
                 'Vereinbartes Zeitkontingent', wait_time=3)
             logined_admin_browser.back()
@@ -81,7 +81,7 @@ class TestActivityView:
             logined_admin_browser.is_text_present('Aktivit', wait_time=3)
             logined_admin_browser.execute_script("window.scrollTo(0, 0);")
             row = logined_admin_browser.find_by_css('.clickable-row')[i]
-            row.find_by_css('a')[1].click()
+            row.find_by_css('a')[0].click()
             logined_admin_browser.is_text_present('Update', wait_time=3)
             assert live_server + '/activity/update/' in \
                 logined_admin_browser.url
