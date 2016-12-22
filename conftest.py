@@ -6,7 +6,10 @@ Configuration of the pytest with CmdLine options, Fixtures and TearDown
 function
 """
 import os
-from http.client import HTTPException
+try:
+    from httplib import HTTPException
+except ImportError:
+    from http.client import HTTPException
 from random import randint
 
 import pytest
