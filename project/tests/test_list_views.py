@@ -11,14 +11,14 @@ class TestProjectView:
         assert len(table_cells) == 200
         for i in [randint(20, 49) for _ in range(5)]:
             logined_admin_browser.is_text_present('Projektname', wait_time=1)
+            logined_admin_browser.execute_script("window.scrollTo(0, 0);")
             row = logined_admin_browser.find_by_css('.clickable-row')[i]
-            row.click()
+            row.find_by_css('a')[1].click()
             assert logined_admin_browser.is_text_present(
                 'Vereinbartes Zeitkontingent', wait_time=1)
             logined_admin_browser.back()
-            edit_button = logined_admin_browser.find_by_css(
-                '.clickable-row td a')[i]
-            edit_button.click()
+            row = logined_admin_browser.find_by_css('.clickable-row')[i]
+            row.find_by_css('a')[3].click()
             logined_admin_browser.is_text_present('Submit', wait_time=1)
             assert live_server + '/update/' in logined_admin_browser.url
             logined_admin_browser.back()
@@ -77,10 +77,11 @@ class TestActivityView:
         assert len(table_rows) == 500
         table_cells = logined_admin_browser.find_by_css('.clickable-row td')
         assert len(table_cells) == 2500
-        for i in [randint(20, 99) for _ in range(5)]:
+        for i in [randint(0, 99) for _ in range(5)]:
             logined_admin_browser.is_text_present('Aktivit', wait_time=1)
+            logined_admin_browser.execute_script("window.scrollTo(0, 0);")
             row = logined_admin_browser.find_by_css('.clickable-row')[i]
-            row.click()
+            row.find_by_css('a')[1].click()
             logined_admin_browser.is_text_present('Update', wait_time=1)
             assert live_server + '/activity/update/' in \
                 logined_admin_browser.url
@@ -112,7 +113,7 @@ class TestCustomerView:
         for i in [randint(0, 4) for _ in range(2)]:
             logined_admin_browser.is_text_present('Name', wait_time=1)
             row = logined_admin_browser.find_by_css('.clickable-row')[i]
-            row.click()
+            row.find_by_css('a')[0].click()
             logined_admin_browser.is_text_present('Update', wait_time=1)
             assert live_server + '/customer/update/' in \
                 logined_admin_browser.url

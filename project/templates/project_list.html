@@ -23,9 +23,9 @@
         </tr>
         {% for pro in project_list %}
             <tr class="clickable-row" data-href="{% url 'project_view' pk=pro.pk %}">
-            <td>{{  pro.name }}</td>
-            <td>{{  pro.customer.name }}</td>
-            <td>{{  pro.description|truncatechars:50 }}</td>
+                <td><a class="table_row_link" href="{% url 'project_view' pk=pro.pk%}"> {{  pro.name }}</a></td>
+                <td><a class="table_row_link" href="{% url 'project_view' pk=pro.pk%}"> {{  pro.customer.name }}</a></td>
+                <td><a class="table_row_link" href="{% url 'project_view' pk=pro.pk%}"> {{  pro.description|truncatechars:50 }}</a></td>
             {% if user.is_staff %}
                 <td><a href="{% url 'update_project_view' pk=pro.pk %}">Edit</a></td>
             {% endif %}

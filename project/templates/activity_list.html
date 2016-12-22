@@ -27,15 +27,23 @@
         {% for act in activity_list %}
             {% if user.is_staff %}
             <tr class="clickable-row" data-href="{% url 'update_activity_view' pk=act.pk %}">
+                <td><a class="table_row_link" href="{% url 'update_activity_view' pk=act.pk%}"> {{ act.remarks|truncatechars:20 }} </a></td>
+                <td><a class="table_row_link" href="{% url 'update_activity_view' pk=act.pk%}"> {{ act.project.name }}</a></td>
+                <td><a class="table_row_link" href="{% url 'update_activity_view' pk=act.pk%}"> {{ act.start_time|naturalday }}</a></td>
+                <td><a class="table_row_link" href="{% url 'update_activity_view' pk=act.pk%}"> {{ act.end_time|naturalday }}</a></td>
+                <td><a class="table_row_link" href="{% url 'update_activity_view' pk=act.pk%}"> {{ act.duration|naturaltime }}</a></td>
+             </tr>
             {% else %}
             <tr class="clickable-row" data-href="{% url 'activity_view' pk=act.pk %}">
+                <td><a class="table_row_link" href="{% url 'activity_view' pk=act.pk%}"> {{ act.remarks|truncatechars:20 }} </a></td>
+                <td><a class="table_row_link" href="{% url 'activity_view' pk=act.pk%}"> {{ act.project.name }}</a></td>
+                <td><a class="table_row_link" href="{% url 'activity_view' pk=act.pk%}"> {{ act.start_time|naturalday }}</a></td>
+                <td><a class="table_row_link" href="{% url 'activity_view' pk=act.pk%}"> {{ act.end_time|naturalday }}</a></td>
+                <td><a class="table_row_link" href="{% url 'activity_view' pk=act.pk%}"> {{ act.duration|naturaltime }}</a></td>
+             </tr>
             {% endif %}
-            <td>{{ act.remarks|truncatechars:20 }}</td>
-            <td>{{ act.project.name }}</td>
-            <td>{{ act.start_time|naturalday }}</td>
-            <td>{{ act.end_time|naturalday }}</td>
-            <td>{{ act.duration|naturaltime }}</td>
-            </tr>
+
+
         {% endfor %}
     </table>
 {% endblock %}
