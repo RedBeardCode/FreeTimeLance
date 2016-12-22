@@ -37,7 +37,6 @@ def splinter_driver_kwargs(request):
             'platform': platform,
             'browserName': browser,
             'tunnelIdentifier': tunnel_id,
-            'name' : request.node.name,
         }
         return desired_cap
     except BaseException:
@@ -53,26 +52,33 @@ def invitation():
 
 
 @pytest.fixture
-def logined_admin_browser(browser, live_server, db, admin_user):
-    create_test_data()
-    browser.visit(live_server.url)
-    browser.find_by_name('username')[0].value = 'admin'
-    browser.find_by_name('password')[0].value = 'password'
-    browser.find_by_value('Login')[0].click()
-    assert browser.is_element_not_present_by_id('#project_list_table',
-                                                wait_time=3)
-    yield browser
-    browser.driver.close()
+def freetimelance_browser(request, browser_instance_getter):
+    browser = browser_instance_getter(request, freetimelance_browser)
+    browser.driver.capabilities['name'] = request.node.name
+    return browser
 
 
 @pytest.fixture
-def logined_browser(browser, live_server, db):
+def logined_admin_browser(freetimelance_browser, live_server, db, admin_user):
     create_test_data()
-    browser.visit(live_server.url)
-    browser.find_by_name('username')[0].value = 'Customer_0'
-    browser.find_by_name('password')[0].value = 'Start123'
-    browser.find_by_value('Login')[0].click()
-    assert browser.is_element_not_present_by_id('#project_list_table',
-                                                wait_time=3)
-    yield browser
-    browser.driver.close()
+    freetimelance_browser.visit(live_server.url)
+    freetimelance_browser.find_by_name('username')[0].value = 'admin'
+    freetimelance_browser.find_by_name('password')[0].value = 'password'
+    freetimelance_browser.find_by_value('Login')[0].click()
+    assert freetimelance_browser.is_element_not_present_by_id(
+        '#project_list_table', wait_time=3)
+    yield freetimelance_browser
+    freetimelance_browser.driver.close()
+
+
+@pytest.fixture(scope='function')
+def logined_browser(freetimelance_browser, live_server, db):
+    create_test_data()
+    freetimelance_browser.visit(live_server.url)
+    freetimelance_browser.find_by_name('username')[0].value = 'Customer_0'
+    freetimelance_browser.find_by_name('password')[0].value = 'Start123'
+    freetimelance_browser.find_by_value('Login')[0].click()
+    assert freetimelance_browser.is_element_not_present_by_id(
+        '#project_list_table', wait_time=3)
+    yield freetimelance_browser
+    freetimelance_browser.driver.close()
