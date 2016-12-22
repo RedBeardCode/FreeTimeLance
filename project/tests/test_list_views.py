@@ -10,7 +10,7 @@ class TestProjectView:
         table_cells = logined_admin_browser.find_by_css('.clickable-row td')
         assert len(table_cells) == 200
         for i in [randint(20, 49) for _ in range(5)]:
-            logined_admin_browser.is_text_present('Projektname', wait_time=1)
+            logined_admin_browser.is_text_present('Projektname', wait_time=3)
             logined_admin_browser.execute_script("window.scrollTo(0, 0);")
             row = logined_admin_browser.find_by_css('.clickable-row')[i]
             row.find_by_css('a')[1].click()
@@ -19,7 +19,7 @@ class TestProjectView:
             logined_admin_browser.back()
             row = logined_admin_browser.find_by_css('.clickable-row')[i]
             row.find_by_css('a')[3].click()
-            logined_admin_browser.is_text_present('Submit', wait_time=1)
+            logined_admin_browser.is_text_present('Submit', wait_time=3)
             assert live_server + '/update/' in logined_admin_browser.url
             logined_admin_browser.back()
 
@@ -55,11 +55,11 @@ class TestProjectView:
         table_cells = logined_browser.find_by_css('.clickable-row td')
         assert len(table_cells) == 30
         for i in [randint(0, 9) for _ in range(2)]:
-            logined_browser.is_text_present('Projektname', wait_time=1)
+            logined_browser.is_text_present('Projektname', wait_time=3)
             row = logined_browser.find_by_css('.clickable-row')[i]
             row.click()
             assert logined_browser.is_text_present(
-                'Vereinbartes Zeitkontingent', wait_time=1)
+                'Vereinbartes Zeitkontingent', wait_time=3)
             logined_browser.back()
 
     def test_side_menu_button_customer(self, logined_browser,
@@ -78,11 +78,11 @@ class TestActivityView:
         table_cells = logined_admin_browser.find_by_css('.clickable-row td')
         assert len(table_cells) == 2500
         for i in [randint(0, 99) for _ in range(5)]:
-            logined_admin_browser.is_text_present('Aktivit', wait_time=1)
+            logined_admin_browser.is_text_present('Aktivit', wait_time=3)
             logined_admin_browser.execute_script("window.scrollTo(0, 0);")
             row = logined_admin_browser.find_by_css('.clickable-row')[i]
             row.find_by_css('a')[1].click()
-            logined_admin_browser.is_text_present('Update', wait_time=1)
+            logined_admin_browser.is_text_present('Update', wait_time=3)
             assert live_server + '/activity/update/' in \
                 logined_admin_browser.url
             logined_admin_browser.back()
@@ -111,10 +111,10 @@ class TestCustomerView:
         table_cells = logined_admin_browser.find_by_css('.clickable-row td')
         assert len(table_cells) == 5
         for i in [randint(0, 4) for _ in range(2)]:
-            logined_admin_browser.is_text_present('Name', wait_time=1)
+            logined_admin_browser.is_text_present('Name', wait_time=3)
             row = logined_admin_browser.find_by_css('.clickable-row')[i]
             row.find_by_css('a')[0].click()
-            logined_admin_browser.is_text_present('Update', wait_time=1)
+            logined_admin_browser.is_text_present('Update', wait_time=3)
             assert live_server + '/customer/update/' in \
                 logined_admin_browser.url
             logined_admin_browser.back()
