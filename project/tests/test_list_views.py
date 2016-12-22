@@ -15,7 +15,7 @@ class TestProjectView:
             row = logined_admin_browser.find_by_css('.clickable-row')[i]
             row.find_by_css('a')[1].click()
             assert logined_admin_browser.is_text_present(
-                'Vereinbartes Zeitkontingent', wait_time=1)
+                'Vereinbartes Zeitkontingent', wait_time=3)
             logined_admin_browser.back()
             row = logined_admin_browser.find_by_css('.clickable-row')[i]
             row.find_by_css('a')[3].click()
@@ -44,7 +44,7 @@ class TestProjectView:
         assert logined_admin_browser.find_by_css('.add-button')
         logined_admin_browser.find_by_css('.add-button').click()
         assert logined_admin_browser.is_text_present('Name of the project',
-                                                     wait_time=1)
+                                                     wait_time=3)
         assert logined_admin_browser.url == live_server.url + '/create/'
 
     def test_list_customer(self, logined_browser,
