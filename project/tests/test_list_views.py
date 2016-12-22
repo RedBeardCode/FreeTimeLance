@@ -9,7 +9,7 @@ class TestProjectView:
         assert len(table_rows) == 50
         table_cells = logined_admin_browser.find_by_css('.clickable-row td')
         assert len(table_cells) == 200
-        for i in [randint(20, 49) for _ in range(5)]:
+        for i in [randint(0, 49) for _ in range(5)]:
             logined_admin_browser.is_text_present('Projektname', wait_time=3)
             logined_admin_browser.execute_script("window.scrollTo(0, 0);")
             row = logined_admin_browser.find_by_css('.clickable-row')[i]
