@@ -116,15 +116,19 @@ def freetimelance_browser(request, browser_instance_getter):
     return browser
 
 
-@pytest.fixture
-def logined_admin_browser(freetimelance_browser, live_server, db, admin_user):
-    create_test_data()
+def login_user(freetimelance_browser, live_server, username, pwd):
     freetimelance_browser.visit(live_server.url)
-    freetimelance_browser.find_by_name('username')[0].value = 'admin'
-    freetimelance_browser.find_by_name('password')[0].value = 'password'
+    freetimelance_browser.find_by_name('username')[0].value = username
+    freetimelance_browser.find_by_name('password')[0].value = pwd
     freetimelance_browser.find_by_value('Login')[0].click()
     assert freetimelance_browser.is_element_not_present_by_id(
         '#project_list_table', wait_time=3)
+
+
+@pytest.fixture
+def logined_admin_browser(freetimelance_browser, live_server, db, admin_user):
+    create_test_data()
+    login_user(freetimelance_browser, live_server, 'admin', 'password')
     yield freetimelance_browser
     freetimelance_browser.driver.close()
 
@@ -132,11 +136,6 @@ def logined_admin_browser(freetimelance_browser, live_server, db, admin_user):
 @pytest.fixture(scope='function')
 def logined_browser(freetimelance_browser, live_server, db):
     create_test_data()
-    freetimelance_browser.visit(live_server.url)
-    freetimelance_browser.find_by_name('username')[0].value = 'Customer_0'
-    freetimelance_browser.find_by_name('password')[0].value = 'Start123'
-    freetimelance_browser.find_by_value('Login')[0].click()
-    assert freetimelance_browser.is_element_not_present_by_id(
-        '#project_list_table', wait_time=3)
+    login_user(freetimelance_browser, live_server, 'Customer_0', 'Start123')
     yield freetimelance_browser
     freetimelance_browser.driver.close()

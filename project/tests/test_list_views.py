@@ -3,13 +3,17 @@ from random import randint
 import pytest
 
 
+def mark_ie_xfail(logined_browser):
+    if logined_browser.driver.capabilities['browserName'] in \
+            ['internet explorer']:
+        pytest.xfail("Because of an issue in Selenuium "
+                     "https://github.com/seleniumhq/"
+                     "selenium-google-code-issue-archive/issues/4403")
+
 class TestProjectView:
     def test_list_as_staff(self, logined_admin_browser,
                            live_server):
-        if logined_admin_browser.driver.capabilities in ['internet explorer']:
-            pytest.xfail("Because of an issue in Selenuium "
-                         "https://github.com/seleniumhq/"
-                         "selenium-google-code-issue-archive/issues/4403")
+        mark_ie_xfail(logined_admin_browser)
         logined_admin_browser.visit(live_server.url)
         table_rows = logined_admin_browser.find_by_css('.clickable-row')
         assert len(table_rows) == 50
@@ -31,10 +35,7 @@ class TestProjectView:
 
     def test_side_menu_as_staff(self, logined_admin_browser,
                                 live_server):
-        if logined_admin_browser.driver.capabilities in ['internet explorer']:
-            pytest.xfail("Because of an issue in Selenuium "
-                         "https://github.com/seleniumhq/"
-                         "selenium-google-code-issue-archive/issues/4403")
+        mark_ie_xfail(logined_admin_browser)
         logined_admin_browser.visit(live_server.url)
         assert logined_admin_browser.find_by_css('.sidebar')
         assert len(logined_admin_browser.find_by_css('#side-menu ul li')) == 3
@@ -50,10 +51,7 @@ class TestProjectView:
 
     def test_add_button_as_staff(self, logined_admin_browser,
                                  live_server):
-        if logined_admin_browser.driver.capabilities in ['internet explorer']:
-            pytest.xfail("Because of an issue in Selenuium "
-                         "https://github.com/seleniumhq/"
-                         "selenium-google-code-issue-archive/issues/4403")
+        mark_ie_xfail(logined_admin_browser)
         logined_admin_browser.visit(live_server.url)
         assert logined_admin_browser.find_by_css('.add-button')
         logined_admin_browser.find_by_css('.add-button').click()
@@ -63,10 +61,7 @@ class TestProjectView:
 
     def test_list_customer(self, logined_browser,
                            live_server):
-        if logined_browser.driver.capabilities in ['internet explorer']:
-            pytest.xfail("Because of an issue in Selenuium "
-                         "https://github.com/seleniumhq/"
-                         "selenium-google-code-issue-archive/issues/4403")
+
         logined_browser.visit(live_server.url)
         table_rows = logined_browser.find_by_css('.clickable-row')
         assert len(table_rows) == 10
@@ -90,10 +85,7 @@ class TestProjectView:
 class TestActivityView:
     def test_list_as_staff(self, logined_admin_browser,
                            live_server):
-        if logined_admin_browser.driver.capabilities in ['internet explorer']:
-            pytest.xfail("Because of an issue in Selenuium "
-                         "https://github.com/seleniumhq/"
-                         "selenium-google-code-issue-archive/issues/4403")
+        mark_ie_xfail(logined_admin_browser)
         logined_admin_browser.visit(live_server.url + '/activity/')
         table_rows = logined_admin_browser.find_by_css('.clickable-row')
         assert len(table_rows) == 500
@@ -127,10 +119,7 @@ class TestActivityView:
 class TestCustomerView:
     def test_list_as_staff(self, logined_admin_browser,
                            live_server):
-        if logined_admin_browser.driver.capabilities in ['internet explorer']:
-            pytest.xfail("Because of an issue in Selenuium "
-                         "https://github.com/seleniumhq/"
-                         "selenium-google-code-issue-archive/issues/4403")
+        mark_ie_xfail(logined_admin_browser)
         logined_admin_browser.visit(live_server.url + '/customer/')
         table_rows = logined_admin_browser.find_by_css('.clickable-row')
         assert len(table_rows) == 5
