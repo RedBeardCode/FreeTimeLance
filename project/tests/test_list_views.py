@@ -10,6 +10,7 @@ def mark_ie_xfail(logined_browser):
                      "https://github.com/seleniumhq/"
                      "selenium-google-code-issue-archive/issues/4403")
 
+
 class TestProjectView:
     def test_list_as_staff(self, logined_admin_browser,
                            live_server):
