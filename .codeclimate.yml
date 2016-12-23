@@ -21,4 +21,3 @@ ratings:
   - "main.css"
 exclude_paths:
 - static/**/*
-- **/static/**/*
