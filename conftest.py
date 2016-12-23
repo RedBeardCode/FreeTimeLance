@@ -44,6 +44,7 @@ def splinter_driver_kwargs(request):
             'browserName': browser,
             'tunnelIdentifier': tunnel_id,
             'name': request.node.name,
+            'nativeEvents': False,
         }
         return desired_cap
     except BaseException:
