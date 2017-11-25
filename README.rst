@@ -13,6 +13,11 @@ FreeTimeLance
    :alt: Code Climate
 
 
+.. image:: https://codecov.io/gh/RedBeardCode/FreeTimeLance/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/RedBeardCode/FreeTimeLance
+
+
+
 
 FreeTimeLane is a small django application to keep your costumer up to date about
 your work. Share your daily workload with nice graphs with your employer.
