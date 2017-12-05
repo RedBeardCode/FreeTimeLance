@@ -1,9 +1,9 @@
 gunicorn
 dj-database-url
 whitenoise
-django>=1.10
-django-crispy-forms>=1.5.1
-django-invitations
+django>=2.0
+django-crispy-forms>=1.7.0
+git+https://github.com/RedBeardCode/django-invitations.git
 django-debug-toolbar
 django-cron
 psycopg2
