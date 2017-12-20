@@ -30,8 +30,17 @@ script:
   - python manage.py migrate
   - py.test  --pylama --splinter-webdriver='remote' --force-flaky --max-run=3 --cov-config .coveragerc --cov=project --cov=FreeTimeLance --splinter-make-screenshot-on-failure=false
   - codecov
+  - sonar-scanner
 addons:
   sauce_connect: true
+  sonarcloud:
+    organization: "redbeardcode-github"
+    token:
+      secure: *********
+    branches:
+      - feature/sonar
+      - master
+
 
 after_success:
   - coveralls
