@@ -18,7 +18,12 @@ def user_accepted_invitation(sender, **kwargs):
 
 
 class CustomerInvitation(Invitation):
-    customer = models.ForeignKey('Customer', blank=True, null=True)
+    customer = models.ForeignKey(
+        'Customer',
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE
+    )
 
 
 invite_accepted.connect(user_accepted_invitation)
@@ -75,13 +80,18 @@ class Project(models.Model):
     Project for which you get a order
     """
     name = models.CharField('Name of the project', max_length=250)
-    customer = models.ForeignKey('Customer')
+    customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
     description = models.TextField('Description of the target of the project')
     start_date = models.DateField('Start date')
     death_line = models.DateField('Death line')
     workload = models.DurationField('Submitted number of working hours')
     repository = models.URLField('Url of the repository')
-    group = models.ForeignKey('auth.Group', blank=True, null=True)
+    group = models.ForeignKey(
+        'auth.Group',
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return "Project: " + self.name
@@ -122,7 +132,7 @@ class Activity(models.Model):
                                      blank=True, null=True)
     start_time = models.DateTimeField('Start time')
     end_time = models.DateTimeField('End time')
-    project = models.ForeignKey('Project')
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)
     remarks = models.TextField('Remarks for the done work', null=True)
 
     def duration(self):

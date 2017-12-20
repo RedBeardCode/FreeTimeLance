@@ -24,8 +24,7 @@ from project.views import CustomerSignUpView, CustomerAcceptInvite, show_404
 urlpatterns = [
     url(r'^invitations/accept-invite/(?P<key>\w+)/?$',
         CustomerAcceptInvite.as_view(), name='accept-invite'),
-    url(r'^invitations/', include('invitations.urls',
-                                  namespace='invitations')),
+    url(r'^invitations/', include('invitations.urls', 'invitations')),
     url(r'^admin/', admin.site.urls),
     url(r'', include('project.urls')),
     url('^accept-invite/register/$', show_404, name='account_signup'),
@@ -40,6 +39,6 @@ if settings.DEBUG:
     import debug_toolbar
 
     urlpatterns += [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
+        url(r'^__debug__/', include(debug_toolbar.urls, namespace='debug')),
 
     ]
