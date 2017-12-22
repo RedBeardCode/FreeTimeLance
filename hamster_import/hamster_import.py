@@ -1,5 +1,5 @@
 from .hamster_models import Facts
-from project.models import Activity, Customer, Project
+from project.models import Activity, Customer, FreelanceProject
 try:
     from urllib.request import urlopen
 except ImportError:
@@ -20,7 +20,7 @@ def download_hamster_db(url, filename=settings.DATABASES['hamster']['NAME']):
 
 def import_db_entries():
     customer_names = [c.name.lower() for c in Customer.objects.all()]
-    project_names = [p.name.lower() for p in Project.objects.all()]
+    project_names = [p.name.lower() for p in FreelanceProject.objects.all()]
     for fact in Facts.objects.all():
         if fact.activity.name.lower() not in customer_names:
             continue
@@ -33,7 +33,7 @@ def import_db_entries():
                 hamster_id=fact.id,
                 start_time=fact.start_time,
                 end_time=fact.end_time,
-                project=Project.objects.get(name__iexact=tag.name),
+                project=FreelanceProject.objects.get(name__iexact=tag.name),
                 remarks=description)
             if created:
                 HAMSTER_LOGGER.info('Created Activitiy with hamster_id {0}'

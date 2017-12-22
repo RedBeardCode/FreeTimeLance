@@ -8,3 +8,4 @@ django-debug-toolbar
 django-cron
 psycopg2
 codecov
+holidays

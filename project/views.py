@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 """
 Views of the project app
 """
@@ -15,7 +15,8 @@ from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from django.views.generic import FormView
 from invitations.views import AcceptInvite
 
-from project.models import Project, Activity, Customer, CustomerInvitation
+from project.models import FreelanceProject, Activity, Customer
+from project.models import CustomerInvitation
 
 
 def show_404(request):
@@ -50,34 +51,38 @@ class CustomerSignUpView(FormView):
         return super(CustomerSignUpView, self).form_valid(form)
 
 
-class ProjectListView(ListView):
+class FreelanceProjectListView(ListView):
     """
     List all projects of the logined customer. If the user is in the staff
     group all project will be shown
     """
-    model = Project
+    model = FreelanceProject
     template_name = "project_list.html"
 
     def get_context_data(self, **kwargs):
         """
         Filters the list of projects to which the user is allowed to see
         """
-        context = super(ProjectListView, self).get_context_data(**kwargs)
-        projects = context['project_list']
+        context = super(FreelanceProjectListView, self).get_context_data(
+            **kwargs
+        )
+        projects = context['freelanceproject_list']
         if not self.request.user.is_staff:
-            project = projects.filter(group__in=self.request.user.groups.all())
-            context['project_list'] = project
+            projects = projects.filter(
+                group__in=self.request.user.groups.all()
+            )
+        context['project_list'] = projects
         return context
 
 
-class ProjectView(UserPassesTestMixin, DetailView):
+class FreelanceProjectView(UserPassesTestMixin, DetailView):
     """
     Overview for one project with pie chart and a table of all activities.
     The user has to be in the user group of the customer or staff to see
     the overview
     """
     template_name = "project_view.html"
-    model = Project
+    model = FreelanceProject
 
     def test_func(self):
         """
@@ -95,8 +100,9 @@ class ProjectView(UserPassesTestMixin, DetailView):
         """
         Adds the chart data to the context
         """
-        context = super(ProjectView, self).get_context_data(**kwargs)
+        context = super(FreelanceProjectView, self).get_context_data(**kwargs)
         context['times'] = self.get_object().get_durations_dump()
+        context['project'] = context['freelanceproject']
         return context
 
     def post(self, request, *args, **kwargs):
@@ -118,33 +124,33 @@ class ProjectView(UserPassesTestMixin, DetailView):
         return JsonResponse(context)
 
 
-class CreateProjectView(CreateView):
+class CreateFreelanceProjectView(CreateView):
     """
     View to create a new project. Only for staff.
     """
     template_name = "project_edit_view.html"
-    model = Project
+    model = FreelanceProject
     fields = ['name', 'customer', 'description', 'start_date', 'death_line',
               'workload', 'repository']
     success_url = reverse_lazy('project_list')
 
 
-class UpdateProjectView(UpdateView):
+class UpdateFreelanceProjectView(UpdateView):
     """
     View to update a project. Only for staff.
     """
     template_name = "project_edit_view.html"
-    model = Project
+    model = FreelanceProject
     fields = ['name', 'customer', 'description', 'start_date', 'death_line',
               'workload', 'repository']
     success_url = reverse_lazy('project_list')
 
 
-class DeleteProjectView(DeleteView):
+class DeleteFreelanceProjectView(DeleteView):
     """
     View to delete a project. Only for staff.
     """
-    model = Project
+    model = FreelanceProject
     template_name = "delete_base.html"
     success_url = reverse_lazy('project_list')
 
