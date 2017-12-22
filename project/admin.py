@@ -1,13 +1,13 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 """
 Configuration of the Admin interface
 """
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 
-from project.models import Project, Customer, Activity
-
+from project.models import FreelanceProject, Customer, Activity, EmployeeProject
 
 admin.site.register(Activity, ModelAdmin)
 admin.site.register(Customer, ModelAdmin)
-admin.site.register(Project, ModelAdmin)
+admin.site.register(FreelanceProject, ModelAdmin)
+admin.site.register(EmployeeProject, ModelAdmin)

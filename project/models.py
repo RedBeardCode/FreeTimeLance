@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 """
 DB Models for the application
 """
@@ -75,17 +75,13 @@ def after_project_saved(sender, instance, created, *args, **kwargs):
 
 
 @python_2_unicode_compatible
-class Project(models.Model):
+class BaseProject(models.Model):
     """
     Project for which you get a order
     """
     name = models.CharField('Name of the project', max_length=250)
     customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
     description = models.TextField('Description of the target of the project')
-    start_date = models.DateField('Start date')
-    death_line = models.DateField('Death line')
-    workload = models.DurationField('Submitted number of working hours')
-    repository = models.URLField('Url of the repository')
     group = models.ForeignKey(
         'auth.Group',
         blank=True,
@@ -120,7 +116,27 @@ class Project(models.Model):
         return dumps(times)
 
 
-post_save.connect(after_project_saved, sender=Project)
+@python_2_unicode_compatible
+class FreelanceProject(BaseProject):
+    """
+    Project for which you get a order
+    """
+    start_date = models.DateField('Start date')
+    death_line = models.DateField('Death line')
+    workload = models.DurationField('Submitted number of working hours')
+    repository = models.URLField('Url of the repository')
+
+
+@python_2_unicode_compatible
+class EmployeeProject(BaseProject):
+    """
+    Project for working as normal employee
+    """
+    weekly_workload = models.DurationField('Normal number of weekly working hours')
+    vacation_days = models.IntegerField('Number of vacation days per year')
+
+post_save.connect(after_project_saved, sender=FreelanceProjcet)
+post_save.connect(after_project_saved, sender=EmployeeProject)
 
 
 @python_2_unicode_compatible
@@ -132,7 +148,7 @@ class Activity(models.Model):
                                      blank=True, null=True)
     start_time = models.DateTimeField('Start time')
     end_time = models.DateTimeField('End time')
-    project = models.ForeignKey('Project', on_delete=models.CASCADE)
+    project = models.ForeignKey('BaseProject', on_delete=models.CASCADE)
     remarks = models.TextField('Remarks for the done work', null=True)
 
     def duration(self):
