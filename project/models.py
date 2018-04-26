@@ -135,7 +135,7 @@ class EmployeeProject(BaseProject):
     weekly_workload = models.DurationField('Normal number of weekly working hours')
     vacation_days = models.IntegerField('Number of vacation days per year')
 
-post_save.connect(after_project_saved, sender=FreelanceProjcet)
+post_save.connect(after_project_saved, sender=FreelanceProject)
 post_save.connect(after_project_saved, sender=EmployeeProject)
 
 
