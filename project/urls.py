@@ -1,12 +1,14 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 """
 Url routing of the project app
 """
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required, permission_required
 
-from project.views import ProjectView, ProjectListView, DeleteProjectView
-from project.views import UpdateProjectView, CreateProjectView
+from project.views import FreelanceProjectView, FreelanceProjectListView
+from project.views import DeleteFreelanceProjectView
+from project.views import CreateFreelanceProjectView
+from project.views import UpdateFreelanceProjectView
 from project.views import UpdateActivityView, CreateActivityView, ActivityView
 from project.views import ActivityListView, DeleteActivityView
 from project.views import CustomerView, CustomerListView, CreateCustomerView
@@ -41,16 +43,17 @@ urlpatterns = [
     url(r'^customer/delete/(?P<pk>[0-9]+)/$',
         permission_required('is_staff')(DeleteCustomerView.as_view()),
         name='delete_customer_view'),
-    url(r'^(?P<pk>[0-9]+)/$', login_required(ProjectView.as_view()),
+    url(r'^(?P<pk>[0-9]+)/$', login_required(FreelanceProjectView.as_view()),
         name='project_view'),
-    url(r'^$', login_required(ProjectListView.as_view()), name='project_list'),
+    url(r'^$', login_required(FreelanceProjectListView.as_view()),
+        name='project_list'),
     url(r'^create/$',
-        permission_required('is_staff')(CreateProjectView.as_view()),
+        permission_required('is_staff')(CreateFreelanceProjectView.as_view()),
         name='create_project_view'),
     url(r'^update/(?P<pk>[0-9]+)/$',
-        permission_required('is_staff')(UpdateProjectView.as_view()),
+        permission_required('is_staff')(UpdateFreelanceProjectView.as_view()),
         name='update_project_view'),
     url(r'^delete/(?P<pk>[0-9]+)/$',
-        permission_required('is_staff')(DeleteProjectView.as_view()),
+        permission_required('is_staff')(DeleteFreelanceProjectView.as_view()),
         name='delete_project_view'),
 ]

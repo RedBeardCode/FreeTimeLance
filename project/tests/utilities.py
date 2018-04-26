@@ -5,7 +5,7 @@ Helper function for testing the project app
 """
 from django.utils.timezone import now, timedelta
 from django.contrib.auth.models import User
-from ..models import Customer, Activity, Project
+from ..models import Customer, Activity, FreelanceProject
 
 
 def create_customers():
@@ -26,8 +26,8 @@ def create_projects():
     """
     for customer in Customer.objects.all():
         for i in range(10):
-            project, _ = Project.objects.get_or_create(
-                name="{0}_Project_{1}".format(customer.name, i),
+            project, _ = FreelanceProject.objects.get_or_create(
+                name="{0}_FreelanceProject_{1}".format(customer.name, i),
                 customer=customer,
                 description="Test project {0}".format(i),
                 start_date=now(),
@@ -44,7 +44,7 @@ def create_activities():
     """
     Creates sample activities for unit tests
     """
-    for project in Project.objects.all():
+    for project in FreelanceProject.objects.all():
         for i in range(10):
             Activity.objects.get_or_create(
                 start_time=now(),
