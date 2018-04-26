@@ -15,7 +15,8 @@ from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from django.views.generic import FormView
 from invitations.views import AcceptInvite
 
-from project.models import FreelanceProject, Activity, Customer, CustomerInvitation
+from project.models import FreelanceProject, Activity, Customer
+from project.models import CustomerInvitation
 
 
 def show_404(request):
@@ -62,10 +63,14 @@ class FreelanceProjectListView(ListView):
         """
         Filters the list of projects to which the user is allowed to see
         """
-        context = super(FreelanceProjectListView, self).get_context_data(**kwargs)
+        context = super(FreelanceProjectListView, self).get_context_data(
+            **kwargs
+        )
         projects = context['freelanceproject_list']
         if not self.request.user.is_staff:
-            projects = projects.filter(group__in=self.request.user.groups.all())
+            projects = projects.filter(
+                group__in=self.request.user.groups.all()
+            )
         context['project_list'] = projects
         return context
 

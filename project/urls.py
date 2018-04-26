@@ -5,8 +5,10 @@ Url routing of the project app
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required, permission_required
 
-from project.views import FreelanceProjectView, FreelanceProjectListView, DeleteFreelanceProjectView
-from project.views import UpdateFreelanceProjectView, CreateFreelanceProjectView
+from project.views import FreelanceProjectView, FreelanceProjectListView
+from project.views import DeleteFreelanceProjectView
+from project.views import CreateFreelanceProjectView
+from project.views import UpdateFreelanceProjectView
 from project.views import UpdateActivityView, CreateActivityView, ActivityView
 from project.views import ActivityListView, DeleteActivityView
 from project.views import CustomerView, CustomerListView, CreateCustomerView
@@ -43,7 +45,8 @@ urlpatterns = [
         name='delete_customer_view'),
     url(r'^(?P<pk>[0-9]+)/$', login_required(FreelanceProjectView.as_view()),
         name='project_view'),
-    url(r'^$', login_required(FreelanceProjectListView.as_view()), name='project_list'),
+    url(r'^$', login_required(FreelanceProjectListView.as_view()),
+        name='project_list'),
     url(r'^create/$',
         permission_required('is_staff')(CreateFreelanceProjectView.as_view()),
         name='create_project_view'),
